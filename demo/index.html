@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deadzone preview</title>
+  <link rel="stylesheet" href="../extension/popup.css">
+  <style>
+    body { width: min(880px, calc(100% - 32px)); margin: 24px auto; }
+    .sticks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .pad {
+      position: relative; height: 220px; touch-action: none; border-radius: 10px;
+      background:
+        linear-gradient(#3a342c, #3a342c) center / 1px 100% no-repeat,
+        linear-gradient(#3a342c, #3a342c) center / 100% 1px no-repeat,
+        #100e0c;
+    }
+    .stick { position: absolute; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; background: #e25b2a; }
+    .readout { font-variant-numeric: tabular-nums; font-size: 15px; }
+    .readout b { color: #f0a05a; font-weight: 650; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>What the site does with the stick</h1>
+      <p>Same math as the extension. Gray is vel.gg look today. Orange is look after the axes are rewritten. At full stick, both speeds meet.</p>
+    </div>
+  </header>
+  <section>
+    <p id="example" class="readout"></p>
+    <canvas id="curve" width="1200" height="320"></canvas>
+  </section>
+  <section>
+    <div class="sticks">
+      <div>
+        <h2>Left stick — movement</h2>
+        <div id="move-pad" class="pad"></div>
+        <p id="move-readout" class="readout"></p>
+      </div>
+      <div>
+        <h2>Right stick — look</h2>
+        <div id="look-pad" class="pad"></div>
+        <p id="look-readout" class="readout"></p>
+      </div>
+    </div>
+    <p class="hint">Drag inside a pad, or use the arrow keys for look. The site never sees this pad: it is a preview of the fix.</p>
+  </section>
+  <script src="../extension/remap.js"></script>
+  <script src="demo.js"></script>
+</body>
+</html>

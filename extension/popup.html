@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BO1 Controller Fix</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Controller fix</h1>
+      <p>The site ignores the right stick below 18%, then squares the remaining speed. At 25% deflection almost nothing is left. This fix rewrites the axes before the game reads them.</p>
+    </div>
+    <label class="switch"><input id="enabled" type="checkbox"><span>On</span></label>
+  </header>
+
+  <section>
+    <h2>Look — right stick</h2>
+    <label class="check"><input id="look-compensate" type="checkbox"> Fix look</label>
+    <label class="slider"><span>Personal deadzone <output id="look-inner-out"></output></span><input id="look-inner" type="range" min="0" max="0.3" step="0.01"></label>
+    <label class="slider"><span>Curve <output id="look-response-out"></output></span><input id="look-response" type="range" min="0.5" max="2.5" step="0.05"></label>
+    <p id="sample" class="sample"></p>
+    <canvas id="curve" width="720" height="280"></canvas>
+    <p class="legend"><i class="raw"></i> site only <i class="fix"></i> with fix · at full deflection they meet</p>
+    <p class="hint">Raise the personal deadzone if the camera drifts at rest. “Linear” makes look speed proportional to the stick. At full deflection, speed stays the site’s. The game’s controller menu (sensitivity, invert Y) still applies on top.</p>
+  </section>
+
+  <section>
+    <h2>Triggers</h2>
+    <label class="slider"><span>L2 / R2 threshold <output id="trigger-out"></output></span><input id="trigger" type="range" min="0.05" max="0.55" step="0.01"></label>
+    <p class="hint">The site only arms aim and fire from 55% of the trigger. Lowering this slider makes them active sooner. 55% changes nothing.</p>
+  </section>
+
+  <details>
+    <summary>Rebind buttons</summary>
+    <p class="hint">Each row is a game action. The menu picks the physical button that triggers it. Swapping two buttons exchanges them. Names match classic mode; in CS mode, R1, L3, and Cross change action.</p>
+    <div id="buttons"></div>
+  </details>
+
+  <details>
+    <summary>Keyboard key → button</summary>
+    <p class="hint">The game sees the key as the chosen button. “Block the key” stops it from also reaching the game keyboard.</p>
+    <div id="keys"></div>
+    <button id="add-key" type="button">Add a key</button>
+    <p id="capture" class="hint" hidden>Press the key to assign. Escape cancels.</p>
+  </details>
+
+  <details>
+    <summary>Advanced</summary>
+    <label class="check"><input id="swap" type="checkbox"> Swap the two sticks</label>
+    <label class="check"><input id="look-invert-x" type="checkbox"> Invert look X</label>
+    <label class="check"><input id="look-invert-y" type="checkbox"> Invert look Y</label>
+    <label class="check"><input id="move-invert-x" type="checkbox"> Invert move X</label>
+    <label class="check"><input id="move-invert-y" type="checkbox"> Invert move Y</label>
+    <label class="slider"><span>Deadzone hardcoded in the game <output id="game-dead-out"></output></span><input id="game-dead" type="range" min="0" max="0.5" step="0.01"></label>
+    <label class="slider"><span>Exponent hardcoded in the game <output id="game-exp-out"></output></span><input id="game-exp" type="range" min="1" max="3" step="0.1"></label>
+    <label class="slider"><span>Real stick travel <output id="range-out"></output></span><input id="range" type="range" min="0.5" max="1" step="0.01"></label>
+    <p class="hint">The first two values match the site’s <code>gamepad.js</code> (0.18 and squared). Change them only if a site update makes look sluggish again, or too twitchy.</p>
+  </details>
+
+  <section id="live">
+    <h2>Connected controller</h2>
+    <p id="pad-status" class="hint">Waiting for a controller.</p>
+    <p id="pad-meter" class="sample"></p>
+  </section>
+
+  <footer>
+    <button id="reset" type="button">Reset</button>
+    <button id="expand" type="button">Open full page</button>
+  </footer>
+  <script src="remap.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

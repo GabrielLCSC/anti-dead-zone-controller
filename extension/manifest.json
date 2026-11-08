@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "BO1 Controller Fix",
+  "version": "1.0.0",
+  "description": "Compensates the BO1 Zombies (vel.gg) look deadzone and rebinds controller buttons.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://vel.gg/*"],
+  "action": {
+    "default_title": "Controller fix",
+    "default_popup": "popup.html"
+  },
+  "options_ui": {
+    "page": "popup.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://vel.gg/bsz", "https://vel.gg/bsz/*"],
+      "js": ["remap.js", "hook.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://vel.gg/bsz", "https://vel.gg/bsz/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED"
+    }
+  ]
+}

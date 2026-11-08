@@ -1,0 +1,87 @@
+:root {
+  color-scheme: dark;
+  --bg: #14120f;
+  --panel: #1c1915;
+  --line: #3a342c;
+  --text: #f3efe6;
+  --muted: #a79f93;
+  --accent: #e25b2a;
+  --curve: #f0a05a;
+  --raw: #8d867b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  width: 400px;
+  margin: 0 auto;
+  padding: 14px;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.45 ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (min-width: 520px) {
+  body { width: 560px; padding: 22px; }
+}
+
+h1, h2, p { margin: 0; }
+h1 { font-size: 16px; font-weight: 650; }
+h2 { font-size: 13px; letter-spacing: 0.02em; }
+
+header, section, details {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+header { display: flex; gap: 12px; align-items: flex-start; }
+header p, .hint { color: var(--muted); margin-top: 6px; }
+.hint code { color: var(--text); }
+
+.switch { display: grid; gap: 4px; justify-items: center; flex: none; color: var(--muted); }
+.switch input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+.slider, .check { display: block; margin-top: 10px; }
+.slider span, .check { display: flex; justify-content: space-between; gap: 8px; }
+.check { justify-content: flex-start; align-items: center; }
+.slider output, .sample { color: var(--curve); font-variant-numeric: tabular-nums; }
+.sample { margin-top: 8px; }
+
+input[type="range"] { width: 100%; margin-top: 4px; accent-color: var(--accent); }
+input[type="checkbox"] { accent-color: var(--accent); }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 140px;
+  margin-top: 8px;
+  background: #100e0c;
+  border-radius: 8px;
+}
+
+.legend { display: flex; align-items: center; gap: 6px; color: var(--muted); margin-top: 6px; }
+.legend i { width: 16px; height: 3px; display: inline-block; }
+.legend .raw { background: var(--raw); }
+.legend .fix { background: var(--accent); }
+
+details summary { cursor: pointer; font-weight: 650; }
+.button-row, .key-row { display: grid; grid-template-columns: 1fr 140px; gap: 8px; align-items: center; margin-top: 8px; }
+.key-row { grid-template-columns: 72px 1fr auto auto; }
+select, button {
+  background: #100e0c;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+button { cursor: pointer; }
+button.danger { color: var(--muted); }
+.action small { display: block; color: var(--muted); }
+
+footer { display: flex; justify-content: space-between; gap: 8px; }
+footer button { padding: 8px 10px; }
+
+#pad-meter:empty { display: none; }
